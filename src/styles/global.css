@@ -21,19 +21,19 @@ body {
 /* Ajuste de viewport para móviles modernos (evita problemas de 100vh con barras del navegador) */
 @supports (height: 100dvh) {
   .feed-container {
-    height: 92dvh;
+    height: 95dvh;
   }
 
   .slide {
-    height: 92dvh;
-    min-height: 92dvh;
+    height: 95dvh;
+    min-height: 100dvh;
   }
 }
 
 /* Contenedor del feed tipo TikTok */
 .feed-container {
   max-width: 430px;
-  height: 97vh;
+  height: 95vh;
   margin: 0 auto;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -49,8 +49,8 @@ body {
 
 /* Cada slide */
 .slide {
-  height: 97vh;
-  min-height: 97vh;
+  height: 95vh;
+  min-height: 95vh;
   width: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -142,7 +142,7 @@ body {
 .floating-actions {
   position: absolute;
   right: 12px;
-  bottom: 160px;
+  bottom: 140px;
   z-index: 10;
   display: flex;
   flex-direction: column;
