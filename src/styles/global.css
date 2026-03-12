@@ -33,7 +33,7 @@ body {
 /* Contenedor del feed tipo TikTok */
 .feed-container {
   max-width: 430px;
-  height: 92vh;
+  height: 93vh;
   margin: 0 auto;
   overflow-y: scroll;
   overflow-x: hidden;
