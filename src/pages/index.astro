@@ -2,18 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import Slide from '../components/Slide.astro';
 import { slides } from '../data/slides.js';
+
+// Tres vueltas del menú para simular un feed largo e "infinito"
+const loopSlides = [...slides, ...slides, ...slides];
 ---
 
 <Layout>
   <div class="feed-wrapper">
     <main class="feed-container" id="feed" aria-label="Menú en formato vertical">
-      {slides.map((slide) => (
+      {loopSlides.map((slide, index) => (
         <Slide
           image={slide.image}
           title={slide.title}
           description={slide.description}
           price={slide.price}
           alt={slide.title}
+          tags={slide.tags}
         />
       ))}
     </main>
@@ -53,6 +57,8 @@ import { slides } from '../data/slides.js';
     }
 
     if (feed && slides.length) {
+      const slideArray = Array.from(slides);
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -63,7 +69,32 @@ import { slides } from '../data/slides.js';
         },
         { root: feed, rootMargin: '0px', threshold: 0.5 }
       );
-      slides.forEach((el) => observer.observe(el));
+      slideArray.forEach((el) => observer.observe(el));
+
+      // Simular scroll infinito: usamos varias copias del mismo set de slides.
+      // Cuando el usuario se acerca al final de la última copia,
+      // reajustamos scrollTop restando una "vuelta", de forma que
+      // visualmente se mantiene en el mismo contenido.
+      const uniqueCount = slides.length / 3;
+      let isAdjusting = false;
+
+      feed.addEventListener('scroll', () => {
+        if (!uniqueCount || isAdjusting) return;
+
+        const current = feed.scrollTop;
+        const cycleHeight = feed.clientHeight * uniqueCount;
+
+        // Si por cualquier razón aún no tenemos altura, salimos.
+        if (!cycleHeight) return;
+
+        // Cuando el usuario ya ha pasado de 1.5 vueltas,
+        // recolocamos hacia atrás una vuelta completa.
+        if (current > cycleHeight * 2) {
+          isAdjusting = true;
+          feed.scrollTop = current - cycleHeight;
+          isAdjusting = false;
+        }
+      });
     }
   })();
 </script>
