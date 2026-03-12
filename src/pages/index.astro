@@ -33,6 +33,15 @@ const loopSlides = [...slides, ...slides, ...slides];
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
       </button>
+      <button type="button" class="action-btn action-btn--share" id="btn-share" aria-label="Compartir">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <path d="M8.59 13.51L15.42 17.49"></path>
+          <path d="M15.41 6.51L8.59 10.49"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </Layout>
@@ -42,7 +51,10 @@ const loopSlides = [...slides, ...slides, ...slides];
     const feed = document.getElementById('feed');
     const btnLike = document.getElementById('btn-like');
     const btnComment = document.getElementById('btn-comment');
+    const btnShare = document.getElementById('btn-share');
     const slides = document.querySelectorAll('[data-slide]');
+    let currentTitle = '';
+    let currentPrice = '';
 
     if (btnLike) {
       btnLike.addEventListener('click', function () {
@@ -56,6 +68,40 @@ const loopSlides = [...slides, ...slides, ...slides];
       });
     }
 
+    if (btnShare) {
+      btnShare.addEventListener('click', async function () {
+        // Micro-animación del botón
+        this.classList.add('shared');
+        window.setTimeout(() => this.classList.remove('shared'), 220);
+
+        const url = window.location.href;
+        const textBase =
+          currentTitle
+            ? `Mira este plato: ${currentTitle}${
+                currentPrice ? ' - ' + currentPrice : ''
+              }`
+            : 'Mira este menú digital';
+
+        // Web Share API (método A)
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: currentTitle || 'Menú digital',
+              text: textBase,
+              url,
+            });
+            return;
+          } catch (err) {
+            // Si el usuario cancela o falla, seguimos al fallback
+          }
+        }
+
+        // Fallback: abrir WhatsApp con texto prellenado
+        const msg = encodeURIComponent(`${textBase}\n${url}`);
+        window.open(`https://wa.me/?text=${msg}`, '_blank', 'noopener,noreferrer');
+      });
+    }
+
     if (feed && slides.length) {
       const slideArray = Array.from(slides);
 
@@ -64,6 +110,12 @@ const loopSlides = [...slides, ...slides, ...slides];
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('slide--visible');
+
+              // Actualizamos el plato actual para compartir
+              const titleEl = entry.target.querySelector('.slide__title');
+              const priceEl = entry.target.querySelector('.slide__price');
+              currentTitle = titleEl?.textContent?.trim() || '';
+              currentPrice = priceEl?.textContent?.trim() || '';
             }
           });
         },
