@@ -33,7 +33,7 @@ body {
 /* Contenedor del feed tipo TikTok */
 .feed-container {
   max-width: 430px;
-  height: 93vh;
+  height: 97vh;
   margin: 0 auto;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -49,8 +49,8 @@ body {
 
 /* Cada slide */
 .slide {
-  height: 92vh;
-  min-height: 92vh;
+  height: 97vh;
+  min-height: 97vh;
   width: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
