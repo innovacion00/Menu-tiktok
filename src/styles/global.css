@@ -10,7 +10,6 @@
 html {
   overflow: hidden;
   -webkit-text-size-adjust: 100%;
-  
 }
 
 body {
@@ -19,7 +18,18 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: black;
-  
+}
+
+/* Ajuste de viewport para móviles modernos (evita problemas de 100vh con barras del navegador) */
+@supports (height: 100dvh) {
+  .feed-container {
+    height: 100dvh;
+  }
+
+  .slide {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 /* Contenedor del feed tipo TikTok */
@@ -85,7 +95,7 @@ body {
 .slide__content {
   position: relative;
   z-index: 2;
-  padding: 24px 16px 40px 16px;
+  padding: 24px 16px 28px 16px;
   color: #fff;
 }
 
@@ -134,7 +144,7 @@ body {
 .floating-actions {
   position: absolute;
   right: 12px;
-  bottom: 120px;
+  bottom: 96px;
   z-index: 10;
   display: flex;
   flex-direction: column;
