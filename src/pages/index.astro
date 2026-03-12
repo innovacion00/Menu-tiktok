@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Slide from '../components/Slide.astro';
+import { slides } from '../data/slides.js';
+---
+
+<Layout>
+  <div class="feed-wrapper">
+    <main class="feed-container" id="feed" aria-label="Menú en formato vertical">
+      {slides.map((slide) => (
+        <Slide
+          image={slide.image}
+          title={slide.title}
+          description={slide.description}
+          price={slide.price}
+          alt={slide.title}
+        />
+      ))}
+    </main>
+
+    <div class="floating-actions" aria-label="Acciones">
+      <button type="button" class="action-btn action-btn--like" id="btn-like" aria-label="Me gusta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+      <button type="button" class="action-btn action-btn--comment" id="btn-comment" aria-label="Comentarios">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  (function () {
+    const feed = document.getElementById('feed');
+    const btnLike = document.getElementById('btn-like');
+    const btnComment = document.getElementById('btn-comment');
+    const slides = document.querySelectorAll('[data-slide]');
+
+    if (btnLike) {
+      btnLike.addEventListener('click', function () {
+        this.classList.toggle('liked');
+      });
+    }
+
+    if (btnComment) {
+      btnComment.addEventListener('click', function () {
+        this.classList.toggle('active');
+      });
+    }
+
+    if (feed && slides.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('slide--visible');
+            }
+          });
+        },
+        { root: feed, rootMargin: '0px', threshold: 0.5 }
+      );
+      slides.forEach((el) => observer.observe(el));
+    }
+  })();
+</script>
+
+<style>
+  .feed-wrapper {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    height: 100vh;
+  }
+</style>
