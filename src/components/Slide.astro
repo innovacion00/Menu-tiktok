@@ -1,6 +1,8 @@
 ---
 interface Props {
-  image: string;
+  image?: string;
+  video?: string;
+  poster?: string;
   title: string;
   description: string;
   price?: string;
@@ -8,17 +10,31 @@ interface Props {
   tags?: string[];
 }
 
-const { image, title, description, price, alt = title, tags = [] } = Astro.props;
+const { image, video, poster, title, description, price, alt = title, tags = [] } = Astro.props;
 ---
 
 <section class="slide" data-slide>
-  <img
-    class="slide__image"
-    src={image}
-    alt={alt}
-    loading="lazy"
-    decoding="async"
-  />
+  {video ? (
+    <video
+      class="slide__media slide__video"
+      data-slide-video
+      src={video}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={poster}
+    />
+  ) : (
+    <img
+      class="slide__image"
+      src={image}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+    />
+  )}
   <div class="slide__overlay" aria-hidden="true"></div>
   <div class="slide__content">
     <h2 class="slide__title">{title}</h2>

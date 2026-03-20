@@ -68,7 +68,8 @@ body {
   transform: translateY(0);
 }
 
-.slide__image {
+.slide__image,
+.slide__media {
   position: absolute;
   inset: 0;
   width: 100%;

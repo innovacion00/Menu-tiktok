@@ -13,6 +13,8 @@ const loopSlides = [...slides, ...slides, ...slides];
       {loopSlides.map((slide, index) => (
         <Slide
           image={slide.image}
+          video={(slide as any).video}
+          poster={(slide as any).poster}
           title={slide.title}
           description={slide.description}
           price={slide.price}
@@ -122,6 +124,75 @@ const loopSlides = [...slides, ...slides, ...slides];
         { root: feed, rootMargin: '0px', threshold: 0.5 }
       );
       slideArray.forEach((el) => observer.observe(el));
+
+      // Opción B (sonido solo al tocar):
+      // Los videos se cargan en muted para autoplay.
+      // Cuando el usuario hace un "tap" (no swipe) sobre el slide,
+      // desmutear y reproducir.
+      const videoNodes = feed.querySelectorAll('video[data-slide-video]');
+      videoNodes.forEach((videoNode) => {
+        const video = /** @type {any} */ (videoNode);
+        const slideEl = video.closest('[data-slide]');
+        if (!slideEl) return;
+
+        let startX = 0;
+        let startY = 0;
+        let startTime = 0;
+        let hasTouchStart = false;
+
+        const tryUnmute = async () => {
+          // @ts-ignore - el checker en Astro está tipando video como Element
+          if (!video || !video.muted) return;
+          // @ts-ignore - el checker en Astro está tipando video como Element
+          video.muted = false;
+          try {
+            // @ts-ignore - el checker en Astro está tipando video como Element
+            await video.play();
+          } catch {
+            // Si el navegador sigue bloqueando, no hacemos nada.
+          }
+        };
+
+        slideEl.addEventListener(
+          'touchstart',
+          (e) => {
+            // @ts-ignore - changedTouches en type Event
+            const t = /** @type {any} */ (e).changedTouches?.[0];
+            if (!t) return;
+            startX = t.clientX;
+            startY = t.clientY;
+            startTime = Date.now();
+            hasTouchStart = true;
+          },
+          { passive: true }
+        );
+
+        slideEl.addEventListener(
+          'touchend',
+          (e) => {
+            // @ts-ignore - changedTouches en type Event
+            const t = /** @type {any} */ (e).changedTouches?.[0];
+            if (!t || !hasTouchStart) return;
+
+            const dx = Math.abs(t.clientX - startX);
+            const dy = Math.abs(t.clientY - startY);
+            const dt = Date.now() - startTime;
+
+            // Consideramos "tap" si el desplazamiento es pequeño.
+            if (dx < 12 && dy < 12 && dt < 350) {
+              void tryUnmute();
+            }
+
+            hasTouchStart = false;
+          },
+          { passive: true }
+        );
+
+        // Desktop fallback: click para desmutear.
+        slideEl.addEventListener('click', () => {
+          void tryUnmute();
+        });
+      });
 
       // Simular scroll infinito: usamos varias copias del mismo set de slides.
       // Cuando el usuario se acerca al final de la última copia,
