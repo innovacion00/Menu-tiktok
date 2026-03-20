@@ -20,7 +20,7 @@ export const slides = [
   },
   {
     id: 2,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Zafiro%20video.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Zafiro%20Video.mp4",
     title: "Zafiro",
     description: "infusion de flor clitoria ternatea en ginebra, almibar simple,zumo de citrico, agua carbonatada",
     price: "38.000$ COP",
