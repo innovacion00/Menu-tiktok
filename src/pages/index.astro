@@ -49,6 +49,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 </Layout>
 
 <script>
+  // @ts-nocheck
   (function () {
     const feed = document.getElementById('feed');
     const btnLike = document.getElementById('btn-like');
@@ -57,6 +58,7 @@ const loopSlides = [...slides, ...slides, ...slides];
     const slides = document.querySelectorAll('[data-slide]');
     let currentTitle = '';
     let currentPrice = '';
+    let unmutedVideo = /** @type {any} */ (null);
 
     if (btnLike) {
       btnLike.addEventListener('click', function () {
@@ -113,6 +115,18 @@ const loopSlides = [...slides, ...slides, ...slides];
             if (entry.isIntersecting) {
               entry.target.classList.add('slide--visible');
 
+              // Al entrar a otro slide, silenciamos/pausamos el video anterior.
+              const currentVideo = /** @type {any} */ (
+                entry.target.querySelector('video[data-slide-video]')
+              );
+              if (unmutedVideo && currentVideo !== unmutedVideo) {
+                // @ts-ignore - el checker en Astro está tipando video como Element
+                unmutedVideo.pause();
+                // @ts-ignore - el checker en Astro está tipando video como Element
+                unmutedVideo.muted = true;
+                unmutedVideo = null;
+              }
+
               // Actualizamos el plato actual para compartir
               const titleEl = entry.target.querySelector('.slide__title');
               const priceEl = entry.target.querySelector('.slide__price');
@@ -143,11 +157,23 @@ const loopSlides = [...slides, ...slides, ...slides];
         const tryUnmute = async () => {
           // @ts-ignore - el checker en Astro está tipando video como Element
           if (!video || !video.muted) return;
+
+          // Asegura que solo un video quede con sonido a la vez.
+          const allVideos = feed.querySelectorAll('video[data-slide-video]');
+          allVideos.forEach((videoItem) => {
+            const v = /** @type {any} */ (videoItem);
+            if (v !== video) {
+              v.pause();
+              v.muted = true;
+            }
+          });
+
           // @ts-ignore - el checker en Astro está tipando video como Element
           video.muted = false;
           try {
             // @ts-ignore - el checker en Astro está tipando video como Element
             await video.play();
+            unmutedVideo = video;
           } catch {
             // Si el navegador sigue bloqueando, no hacemos nada.
           }
