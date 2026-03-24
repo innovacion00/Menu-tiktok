@@ -109,41 +109,125 @@ const loopSlides = [...slides, ...slides, ...slides];
     if (feed && slides.length) {
       const slideArray = Array.from(slides);
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('slide--visible');
+      const videoNodes = feed.querySelectorAll('video[data-slide-video]');
+      const allVideos = Array.from(videoNodes);
 
-              // Al entrar a otro slide, silenciamos/pausamos el video anterior.
-              const currentVideo = /** @type {any} */ (
-                entry.target.querySelector('video[data-slide-video]')
-              );
-              if (unmutedVideo && currentVideo !== unmutedVideo) {
-                // @ts-ignore - el checker en Astro está tipando video como Element
-                unmutedVideo.pause();
-                // @ts-ignore - el checker en Astro está tipando video como Element
-                unmutedVideo.muted = true;
-                unmutedVideo = null;
+      /**
+       * Asegura que un video esté reproduciéndose.
+       * - Si `unmute: true`, intenta reproducir con sonido (y pausa los demás).
+       * - Si falla por autoplay policy, hace fallback a `muted` para que al menos se reproduzca.
+       */
+      const playVideo = async (
+        videoEl,
+        { unmute = false } = /** @type {any} */ ({})
+      ) => {
+        if (!videoEl) return;
+
+        if (unmute) {
+          // Pausa/asegura exclusividad cuando hay reproducción "audible".
+          allVideos.forEach((videoItem) => {
+            const v = /** @type {any} */ (videoItem);
+            if (v !== videoEl) {
+              try {
+                v.pause();
+              } catch {
+                // no-op
               }
-
-              // Actualizamos el plato actual para compartir
-              const titleEl = entry.target.querySelector('.slide__title');
-              const priceEl = entry.target.querySelector('.slide__price');
-              currentTitle = titleEl?.textContent?.trim() || '';
-              currentPrice = priceEl?.textContent?.trim() || '';
+              v.muted = true;
             }
           });
+
+          // Marcamos inmediatamente el "actual" para evitar flips por callbacks simultáneos.
+          unmutedVideo = videoEl;
+          videoEl.muted = false;
+
+          try {
+            if (videoEl.paused) {
+              await videoEl.play();
+            }
+            return;
+          } catch {
+            // Fallback: si el navegador bloquea el audio, reproducimos silenciado.
+            try {
+              videoEl.muted = true;
+              if (videoEl.paused) {
+                await videoEl.play();
+              }
+            } catch {
+              // no-op
+            }
+            unmutedVideo = null;
+            return;
+          }
+        }
+
+        // Modo muted: solo aseguramos reproducción (sin desmutear).
+        try {
+          videoEl.muted = true;
+          if (videoEl.paused) {
+            await videoEl.play();
+          }
+        } catch {
+          // autoplay puede fallar si el navegador decide bloquearlo
+        }
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visibleEntries = entries
+            .filter((e) => e.isIntersecting)
+            .sort(
+              (a, b) =>
+                (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
+            );
+
+          if (!visibleEntries.length) return;
+          const entry = visibleEntries[0];
+
+          entry.target.classList.add('slide--visible');
+
+          const currentVideo = /** @type {any} */ (
+            entry.target.querySelector('video[data-slide-video]')
+          );
+
+          // Si entramos a un slide que NO tiene video, cortamos cualquier audio en curso.
+          if (!currentVideo) {
+            if (unmutedVideo) {
+              try {
+                unmutedVideo.pause();
+              } catch {
+                // no-op
+              }
+              unmutedVideo.muted = true;
+              unmutedVideo = null;
+            }
+          } else {
+            // Si el usuario estaba escuchando un video y swipea a otro,
+            // pausamos el anterior y arrancamos el nuevo sin tocar la pantalla.
+            if (unmutedVideo && currentVideo !== unmutedVideo) {
+              void playVideo(currentVideo, { unmute: true });
+            } else if (!unmutedVideo) {
+              // Si veníamos en muted, al menos aseguremos que el video nuevo se reproduzca.
+              void playVideo(currentVideo, { unmute: false });
+            } else {
+              // Mismo slide con sonido: mantenemos reproducción/audio.
+              void playVideo(currentVideo, { unmute: true });
+            }
+          }
+
+          // Actualizamos el plato actual para compartir
+          const titleEl = entry.target.querySelector('.slide__title');
+          const priceEl = entry.target.querySelector('.slide__price');
+          currentTitle = titleEl?.textContent?.trim() || '';
+          currentPrice = priceEl?.textContent?.trim() || '';
         },
         { root: feed, rootMargin: '0px', threshold: 0.5 }
       );
       slideArray.forEach((el) => observer.observe(el));
 
-      // Opción B (sonido solo al tocar):
       // Los videos se cargan en muted para autoplay.
-      // Cuando el usuario hace un "tap" (no swipe) sobre el slide,
-      // desmutear y reproducir.
-      const videoNodes = feed.querySelectorAll('video[data-slide-video]');
+      // - En swipe/scroll, aseguramos reproducción del slide visible.
+      // - Si había un video con sonido, el nuevo se desmuteará automáticamente (si el navegador lo permite).
       videoNodes.forEach((videoNode) => {
         const video = /** @type {any} */ (videoNode);
         const slideEl = video.closest('[data-slide]');
@@ -153,31 +237,6 @@ const loopSlides = [...slides, ...slides, ...slides];
         let startY = 0;
         let startTime = 0;
         let hasTouchStart = false;
-
-        const tryUnmute = async () => {
-          // @ts-ignore - el checker en Astro está tipando video como Element
-          if (!video || !video.muted) return;
-
-          // Asegura que solo un video quede con sonido a la vez.
-          const allVideos = feed.querySelectorAll('video[data-slide-video]');
-          allVideos.forEach((videoItem) => {
-            const v = /** @type {any} */ (videoItem);
-            if (v !== video) {
-              v.pause();
-              v.muted = true;
-            }
-          });
-
-          // @ts-ignore - el checker en Astro está tipando video como Element
-          video.muted = false;
-          try {
-            // @ts-ignore - el checker en Astro está tipando video como Element
-            await video.play();
-            unmutedVideo = video;
-          } catch {
-            // Si el navegador sigue bloqueando, no hacemos nada.
-          }
-        };
 
         slideEl.addEventListener(
           'touchstart',
@@ -206,7 +265,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 
             // Consideramos "tap" si el desplazamiento es pequeño.
             if (dx < 12 && dy < 12 && dt < 350) {
-              void tryUnmute();
+              void playVideo(video, { unmute: true });
             }
 
             hasTouchStart = false;
@@ -216,7 +275,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 
         // Desktop fallback: click para desmutear.
         slideEl.addEventListener('click', () => {
-          void tryUnmute();
+          void playVideo(video, { unmute: true });
         });
       });
 
