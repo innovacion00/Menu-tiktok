@@ -84,15 +84,14 @@ export const slides = [
   },
   {
     id: 10,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Del%20Mar/intruduccion%20arroces.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/intruduccion%20arroces.mp4",
     title: "Arroces",
     description: "Platos que celebran la riqueza del grano y su versatilidad. Cada arroz está elaborado con cuidado, resaltando sabores auténticos y texturas que reconfortan. ",
-    
     tags: ["Arroces"],
   },
   {
     id: 11,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Del%20Mar/arroz%20mar.%20y%20tierra.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/arroz%20mar.%20y%20tierra.mp4",
     title: "Arroz mar y tierra",
     description: "Arroz salteado con chorizo santarroseño, lomo y camarones, lleno de sabor.",
     price: "60.000$ COP",
@@ -100,7 +99,7 @@ export const slides = [
   },
   {
     id: 12,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Del%20Mar/arroz%20de%20marisco.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/arroz%20de%20marisco.mp4",
     title: "Arroz de marisco",
     description: "Arroz cremoso con mix de mariscos frescos, terminado con un toque cítrico.",
     price: "65.000$ COP",
@@ -431,7 +430,7 @@ export const slides = [
   },
   {
     id: 53,
-    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Lemongrass%20spritz.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Lemongrass%20spritz.mp4",
     title: "Mocktails: lemongrass spritz",
     description: "Burbujeante bebida de notas herbales y citricas de limonaria y fruta de la pasion.",
     price: "16.000$ COP",
@@ -447,7 +446,7 @@ export const slides = [
   },
   {
     id: 55,
-    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vainilla%20spritz%20video.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vainilla%20spritz%20video.mp4",
     title: "Mocktail: Vainilla spritz",
     description: "Perfecta combinacion dulce y citrica entre la vainilla y limon mandarino terminado con agua carbonatada.",
     price: "16.000$ COP",
