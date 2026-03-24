@@ -12,6 +12,127 @@ export const slides = [
   },
   {
     id: 1,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/introduccion%20bebidas.mp4",
+    title: "Bebidas",
+    description:"Opciones refrescantes para todos los gustos: desde limonadas y jugos naturales en leche o agua, hasta gaseosas clásicas y cervezas bien frías.",
+  },
+  {
+    id: 2,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20en%20agua.mp4",
+    title: "Jugos naturales en agua",
+    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
+    price:"13.900$ COP",
+    tags: ["Bebidas", "Jugos"],
+  },
+  {
+    id: 3,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20con%20leche.mp4",
+    title: "Jugos naturales en leche",
+    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
+    price:"15.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
+    id: 4,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/AGUA-VIDRIO-MANANTIAL.png",
+    title: "Agua manantial ",
+    price:"7.900$ COP",
+    tags: ["Bebidas"],
+  },
+  {
+    id: 5,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/lviv-ukraine-may-25-2025-600nw-2633605301.png",
+    title: "Sprite 400ml",
+    price:"8.900$ COP",
+    tags: ["Bebidas","Gaseosa"],
+  },
+  {
+    id: 6,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/cocacola.png",
+    title: "Coca Cola 400ml",
+    price:"8.900$ COP",
+    tags: ["Bebidas","Gaseosas"],
+  },
+  {
+    id: 7,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/cocacola-zero.png",
+    title: "Coca Cola zero 400ml",
+    price:"8.900$ COP",
+    tags: ["Bebidas","Gaseosas"],
+  },
+  {
+    id: 8,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/h20%20limon.png",
+    title: "H20 Limon",
+    price:"8.900$ COP",
+    tags: ["Bebidas","Gaseosas"],
+  },
+  {
+    id: 9,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/1976_GINGER_BEER.png",
+    title: "1976 Ginger Beer",
+    price:"8.900$ COP",
+    tags: ["Bebidas"],
+  },
+  {
+    id: 10,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/schweppes.png",
+    title: "Schweppes",
+    price:"8.900$ COP",
+    tags: ["Bebidas"],
+  },
+  {
+    id: 11,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/Kola-Roman.png",
+    title: "Kola Roman",
+    price:"8.900$ COP",
+    tags: ["Bebidas","Gaseosas"],
+  },
+  {
+    id: 12,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/aguila-light.png",
+    title: "Cerveza aguila",
+    price:"11.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+  {
+    id: 13,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/Cerveza-aguila-light-lata-330-ml-2.png",
+    title: "Cerveza aguila light",
+    price:"11.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+  {
+    id: 14,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/heineken.png",
+    title: "Heineken",
+    price:"14.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+  {
+    id: 15,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/corona%20extra.png",
+    title: "Corona extra",
+    price:"14.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+  {
+    id: 16,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/club%20colombia%20dorada.png",
+    title: "Club Colombia dorada",
+    price:"14.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+  {
+    id: 17,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/budweiser.png",
+    title: "Budweiser",
+    price:"12.900$ COP",
+    tags: ["Bebidas","Cervezas"],
+  },
+
+  {
+    id: 18,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Zafiro%20video.mp4",
     title: "Zafiro",
     description: "Infusión de flor clitoria ternatea en ginebra, almibar simple,zumo de citrico, agua carbonatada",
@@ -19,7 +140,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 2,
+    id: 19,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Aguaymanto%20video.mp4",
     title: "Aguaymanto",
     description: "Ron añejo, encurtido de uchuvas, zumo de mandarino,agua carbonatada",
@@ -27,7 +148,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 3,
+    id: 20,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Rubi%20video.mp4",
     title: "Rubí",
     description: "Perfecta combinación de aguardiente,necta de corozo, solucion de citricos,almibar simple .",
@@ -35,7 +156,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 4,
+    id: 21,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Piura%20video.mp4",
     title: "Pirua",
     description: "Fatwashing de coco y chocolate blanco en pisco ron de coco, almibar de vainilla, zumo de limon clarificado",
@@ -43,7 +164,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 5,
+    id: 22,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Gold%20Rush%20Video.mp4",
     title: "Gold Rush",
     description: "Clasico moderno de whisky mezcaldo con miel de abejas y cirico de mandarino.",
@@ -51,7 +172,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 6,
+    id: 23,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Amalgama%20video.mp4",
     title: "Amalgama",
     description: "Tequila reposado,miel de cafe, zumo de mandarino, amargos de chocolte",
@@ -59,7 +180,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 7,
+    id: 24,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vermouth%20con%20soda%20video.mp4",
     title: "Vermouth con soda",
     description: "Originario de Italia, preparado con  vermouth, agua carbonatada y naranja.",
@@ -67,7 +188,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 8,
+    id: 25,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Aperol%20spritz%20video.mp4",
     title: "Aperol spritz",
     description: "Combinado Italiano a base de aperitivo dulce  y Prosecco.",
@@ -75,7 +196,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 9,
+    id: 26,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Margarita%20video.mp4",
     title: "Margarita",
     description: "Composición de tequila, licor de naranja y cítrico.",
@@ -83,7 +204,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 10,
+    id: 27,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Daiquiri%20malbec%20video.mp4",
     title: "Daiquiri malbec",
     description: "Fuerte ron blanco, zumo de limon y una reduccionde vino.",
@@ -91,7 +212,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 11,
+    id: 28,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Porn%20star%20martini%20video.mp4",
     title: "Porn star martini",
     description: "Elegante y sofisticada combinación de origen europeo que mezcla el sabor dulce y suave de la vainilla con el citrico de la maracuya y vodka.",
@@ -99,7 +220,7 @@ export const slides = [
     tags: ["Cocktails"],
   },
   {
-    id: 12,
+    id: 29,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Old%20fashioned%20video.mp4",
     title: "Old fashioned",
     description: "Combincacion de whisky blanck and white, almibar simple y bitter de angostura",
@@ -107,7 +228,7 @@ export const slides = [
     tags: ["Cocktails","Whisky"],
   },
   {
-    id: 13,
+    id: 30,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Moscow%20mule%20video.mp4",
     title: "Moscow Mule",
     description: "Cóctel tipo buck refrescante a base de vodka, cítrico natural de lima y cerveza de jengibre .",
@@ -115,7 +236,7 @@ export const slides = [
     tags: ["Cocktails","Vodka"],
   },
   {
-    id: 14,
+    id: 31,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Falernum%20video.mp4",
     title: "Mocktails: falernum",
     description: "Mezcla perfecta de almendra y especias con notas dulces y citricas gasificadas.",
@@ -123,7 +244,7 @@ export const slides = [
     tags: ["Cocktails","Mocktails"],
   },
   {
-    id: 15,
+    id: 32,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Lemongrass%20spritz.mp4",
     title: "Mocktails: lemongrass spritz",
     description: "Burbujeante bebida de notas herbales y citricas de limonaria y fruta de la pasion.",
@@ -131,7 +252,7 @@ export const slides = [
     tags: ["Cocktails","Mocktails"],
   },
   {
-    id: 16,
+    id: 33,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Solari%20video.mp4",
     title: "Mocktails: solari",
     description: "Bebida refrescante a base de flor de jamaica, mile de abejas y limon mandarino.",
@@ -139,7 +260,7 @@ export const slides = [
     tags: ["Cocktails","Mocktails"],
   },
   {
-    id: 17,
+    id: 34,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vainilla%20spritz%20video.mp4",
     title: "Mocktail: Vainilla spritz",
     description: "Perfecta combinacion dulce y citrica entre la vainilla y limon mandarino terminado con agua carbonatada.",
@@ -147,7 +268,7 @@ export const slides = [
     tags: ["Cocktails","Mocktails"],
   },
   {
-    id: 18,
+    id: 35,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/video%20menu%20de%20entradas%20.mp4",
     title: "Entradas",
     description: "Cada entrada está diseñada para ser el inicio perfecto de la experiencia, equilibrando lo tradicional con un toque creativo.",
@@ -155,7 +276,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 19,
+    id: 36,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/ceviche%20de%20camaron.mp4",
     title: "Coctel de camarones",
     description: "Camarones frescos en salsa rosada de la casa, con un toque cítrico y notas caribeñas.",
@@ -163,7 +284,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 20,
+    id: 37,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/ceviche%20de%20pescado.mp4",
     title: "Ceviche de pescado",
     description: "Pescado fresco marinado en limón y leche de coco, cebolla morada, cilantro y un sutil toque fresco.",
@@ -171,7 +292,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 21,
+    id: 38,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/ptacones%20coste%C3%B1os.mp4",
     title: "Patacones Costeños",
     description: "Crujientes patacones acompañados de hogao casero y suero costeño.",
@@ -179,7 +300,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 22,
+    id: 39,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/Mar%20&%20Crunchmp4.mp4",
     title: "Mar & Crunch",
     description: "Selección de mariscos crocantes, dorados al punto, con salsas de la casa.",
@@ -187,7 +308,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 23,
+    id: 40,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/trilogia%20burger.mp4",
     title: "Trilogía Burger",
     description: "Tres mini Burger con sabores únicos, perfectas para compartir.",
@@ -195,7 +316,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 24,
+    id: 41,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/trilogia%20del%20caribe.mp4",
     title: "Trilogía del caribe",
     description: "Degustación de sabores del Caribe en tres preparaciones llenas de tradición.",
@@ -203,7 +324,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 25,
+    id: 42,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/tacos%20de%20camaron.mp4",
     title: "Tacos de camaron",
     description: "Tortillas suaves rellenas de camarones salteados, frescos y llenos de sabor.",
@@ -211,7 +332,7 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 26,
+    id: 43,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/montadito%20de%20lomo.mp4",
     title: "Montadito de lomo",
     description: "Tortilla de maíz crocante con lomo salteado y toques especiales del chef.",
@@ -219,14 +340,14 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
-    id: 27,
+    id: 44,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/intruduccion%20arroces.mp4",
     title: "Arroces",
     description: "Platos que celebran la riqueza del grano y su versatilidad. Cada arroz está elaborado con cuidado, resaltando sabores auténticos y texturas que reconfortan. ",
     tags: ["Arroces"],
   },
   {
-    id: 28,
+    id: 45,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/arroz%20mar.%20y%20tierra.mp4",
     title: "Arroz mar y tierra",
     description: "Arroz salteado con chorizo santarroseño, lomo y camarones, lleno de sabor.",
@@ -234,7 +355,7 @@ export const slides = [
     tags: ["Arroces","Mariscos"],
   },
   {
-    id: 29,
+    id: 46,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Arroces/arroz%20de%20marisco.mp4",
     title: "Arroz de marisco",
     description: "Arroz cremoso con mix de mariscos frescos, terminado con un toque cítrico.",
@@ -242,7 +363,7 @@ export const slides = [
     tags: ["Arroces","Mariscos"],
   },
   {
-    id: 30,
+    id: 47,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pastas/introduccion%20pastas.mp4",
     title: "Pastas",
     description: "🍝 Sabores clásicos y frescos en cada plato, desde la intensidad de la boloñesa hasta la ligereza de la primavera, pasando por la riqueza marina de la marinera.",
@@ -250,7 +371,7 @@ export const slides = [
     tags: ["Pastas"],
   },
   {
-    id: 31,
+    id: 48,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pastas/pasta%20bolonesa.mp4",
     title: "Pastas boloñesa",
     description: "Clásica salsa de carne cocida lentamente, llena de sabor.",
@@ -258,7 +379,7 @@ export const slides = [
     tags: ["Pastas"],
   },
   {
-    id: 32,
+    id: 49,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pastas/pasta%20marinera.mp4",
     title: "Pastas Marinera",
     description: "Pasta en bisque cremoso de camarones, con mix de mariscos frescos.",
@@ -266,7 +387,7 @@ export const slides = [
     tags: ["Pastas"],
   },
   // {
-  //   id: 33,
+  //   id: 50,
   //   video: "",
   //   title: "Pastas Primavera",
   //   description: "Pasta ligera con vegetales frescos salteados.",
@@ -274,14 +395,14 @@ export const slides = [
   //   tags: ["Pastas", vegetales],
   // },
   {
-    id: 34,
+    id: 51,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/introduccion%20%20platos%20de%20parrilla.mp4",
     title: "A LA PARRILLA",
     description: "🔥 Platos a la parrilla  Sabores intensos y auténticos, con carnes y cortes preparados al fuego para resaltar su jugosidad y aroma. Una selección pensada para quienes disfrutan de la tradición y el gusto inconfundible de la parrilla.",
     tags: ["Asados","A la parrilla"],
   },
   {
-    id: 35,
+    id: 52,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/burger%20aixo.mp4",
     title: "Burger Aixo",
     description: "Carne de res madurada con puerro crocante caramelizado, tocineta, queso cheddar y mayo chipotle.",
@@ -289,7 +410,7 @@ export const slides = [
     tags: ["Hamburguesa","A la parrilla","Angus"],
   },
   {
-    id: 36,
+    id: 53,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/tomahawck.mp4",
     title: "Tomahawck de cerdo.",
     description: "Corte jugoso a la parrilla, acompañado de papas francesas y chimichurri artesanal.",
@@ -297,7 +418,7 @@ export const slides = [
     tags: ["A la parrilla","Cerdo"],
   },
   // {
-  //   id: 37,
+  //   id: 54,
   //   video: "",
   //   title: "Baby beef.",
   //   description: "Corte tierno a la parrilla, acompañado de papas francesas y chimichurri artesanal.",
@@ -305,7 +426,7 @@ export const slides = [
   //   tags: ["A la parrilla","Carne"],
   // },
   // {
-  //   id: 38,
+  //   id: 55,
   //   video: "",
   //   title: "Churrasco.",
   //   description: "Corte jugoso a la parrilla, acompañado de papas francesas y chimichurri artesanal.",
@@ -313,7 +434,7 @@ export const slides = [
   //   tags: ["A la parrilla","Carne"],
   // },
   // {
-  //   id: 39,
+  //   id: 56,
   //   video: "",
   //   title: "Pechuga a la plancha.",
   //   description: "Pechuga de pollo dorada, acompañado de papas francesas y de chimichurri artesanal.",
@@ -321,14 +442,14 @@ export const slides = [
   //   tags: ["A la parrilla","Pechuga"],
   // },
   // {
-  //   id: 40,
+  //   id: 57,
   //   video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Sopas%20y%20cremas/introduccion%20cremas%20y%20sopas%20(1).mp4",
   //   title: "Sopas y cremas.",
   //   description: "Corte jugoso a la parrilla, acompañado de papas francesas y chimichurri artesanal.",
   //   tags: ["Sopas"],
   // },
   // {
-  //   id: 41,
+  //   id: 58,
   //   video: "",
   //   title: "Mote de queso.",
   //   description: "Sopa tradicional costeña con queso, ñame y suero.",
@@ -336,7 +457,7 @@ export const slides = [
   //   tags: ["Sopas", "Queso", "Costeño"],
   // },
   // {
-  //   id: 42,
+  //   id: 59,
   //   video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/tomahawck.mp4",
   //   title: "Crema de polloo y champiñones",
   //   description: "Suave crema con pollo, champiñones y cebolla caramelizada.",
@@ -344,14 +465,14 @@ export const slides = [
   //   tags: ["Crema", "Champiñones"],
   // },
   // {
-  //   id: 43,
+  //   id: 60,
   //   video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pizza/intruduccion%20pizzas.mp4",
   //   title: "🍕 Pizzas",
   //   description: "Recetas artesanales con masa al horno y combinaciones que van desde lo clásico hasta lo creativo, pensadas para compartir y disfrutar en cada bocado.",
   //   tags: ["Pizzas"],
   // },
   // {
-  //   id: 44,
+  //   id: 61,
   //   video: "",
   //   title: "Jamón y queso",
   //   description: "Clásica combinación con queso fundido y jamón..",
@@ -359,7 +480,7 @@ export const slides = [
   //   tags: ["Pizzas"],
   // },
   // {
-  //   id: 45,
+  //   id: 62,
   //   video: "",
   //   title: "Salami",
   //   description: "Pizza con salami y queso, de sabor intenso.",
@@ -367,7 +488,7 @@ export const slides = [
   //   tags: ["Pizzas"],
   // },
   // {
-  //   id: 46,
+  //   id: 63,
   //   video: "",
   //   title: "Pepperoni",
   //   description: "Pepperoni crocante con queso derretido.",
@@ -375,7 +496,7 @@ export const slides = [
   //   tags: ["Pizzas"],
   // },
   // {
-  //   id: 47,
+  //   id: 64,
   //   video: "",
   //   title: "Vegetariana",
   //   description: "Vegetales frescos sobre base de tomate y queso.",
@@ -383,7 +504,7 @@ export const slides = [
   //   tags: ["Pizzas","Vegetariana"],
   // },
   // {
-  //   id: 48,
+  //   id: 65,
   //   video: "",
   //   title: "Maíz y tocineta",
   //   description: "Dulce maíz y tocineta crocante, equilibrio perfecto.",
@@ -391,7 +512,7 @@ export const slides = [
   //   tags: ["Pizzas"],
   // },
   // {
-  //   id: 49,
+  //   id: 66,
   //   video: "",
   //   title: "Posta negra cartagenera",
   //   description: "Pizza con sabores dulces y especiados inspirados en la tradición caribeña.",
@@ -399,14 +520,14 @@ export const slides = [
   //   tags: ["Pizzas"],
   // },
   {
-    id: 50,
+    id: 67,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Recomendados%20del%20chef/introduccion%20recomendados%20del%20chef.mp4",
     title: "Recomendados del chef",
     description: "Platos seleccionados con especial cuidado, donde la creatividad y el sabor se unen para ofrecer una experiencia única. Una muestra de la cocina en su mejor expresión, pensada para sorprender y deleitar.",
     tags: ["Recomendaciones","Signature"],
   },
   {
-    id: 51,
+    id: 68,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Recomendados%20del%20chef/lomo%20saltado.mp4",
     title: "Lomo saltado",
     description: "Lomo salteado servido sobre arroz cremoso de champiñones.",
@@ -414,7 +535,7 @@ export const slides = [
     tags: ["Recomendaciones","Signature","Arroz","Champiñones"],
   },
   // {
-  //   id: 52,
+  //   id: 69,
   //   video: "",
   //   title: "Posta negra Cartagenera",
   //   description: "Carne cocida lentamente en salsa dulce y especiada, ícono del Caribe.",
@@ -422,7 +543,7 @@ export const slides = [
   //   tags: ["Recomendaciones","Signature","Carne","Caribeña"],
   // },
   // {
-  //   id: 53,
+  //   id: 70,
   //   video: "",
   //   title: "Ceviche de chicharrón",
   //   description: "Chicharrón crocante con toques cítricos y frescos.",
@@ -430,14 +551,14 @@ export const slides = [
   //   tags: ["Recomendaciones","Signature","Chicharron"],
   // },
   // {
-  //   id: 54,
+  //   id: 71,
   //   video: "",
   //   title: "Postres",
   //   description: "",
   //   tags: ["Postres","Dulces"],
   // },
   // {
-  //   id: 55,
+  //   id: 72,
   //   video: "",
   //   title: "Brownie con helado",
   //   description: "Brownie tibio con helado cremoso, contraste perfecto.",
@@ -445,7 +566,7 @@ export const slides = [
   //   tags: ["Postres","Dulces","Frio"],
   // },
   // {
-  //   id: 56,
+  //   id: 73,
   //   video: "",
   //   title: "Copa de helado",
   //   description: "Selección de helados servidos con toppings dulces.",
