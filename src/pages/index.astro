@@ -16,7 +16,7 @@ const loopSlides = [...slides, ...slides, ...slides];
           video={(slide as any).video}
           poster={(slide as any).poster}
           title={slide.title}
-          description={slide.description}
+          description={slide.description ?? ''}
           price={slide.price}
           alt={slide.title}
           tags={slide.tags}
@@ -58,7 +58,12 @@ const loopSlides = [...slides, ...slides, ...slides];
     const slides = document.querySelectorAll('[data-slide]');
     let currentTitle = '';
     let currentPrice = '';
-    let unmutedVideo = /** @type {any} */ (null);
+    let activeVideo = /** @type {any} */ (null);
+    let currentVisibleVideo = /** @type {any} */ (null);
+    const isiOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    let userInteracted = false;
 
     if (btnLike) {
       btnLike.addEventListener('click', function () {
@@ -110,12 +115,47 @@ const loopSlides = [...slides, ...slides, ...slides];
       const slideArray = Array.from(slides);
 
       const videoNodes = feed.querySelectorAll('video[data-slide-video]');
-      const allVideos = Array.from(videoNodes);
+
+      // iOS Safari suele requerir un gesto del usuario para habilitar reproducción.
+      // Usamos esta bandera para evitar llamadas a `play()` antes del primer toque/click.
+      feed.addEventListener(
+        'touchstart',
+        () => {
+          userInteracted = true;
+        },
+        { passive: true, once: true }
+      );
+      feed.addEventListener(
+        'click',
+        () => {
+          userInteracted = true;
+        },
+        { once: true }
+      );
 
       /**
-       * Asegura que un video esté reproduciéndose.
-       * - Si `unmute: true`, intenta reproducir con sonido (y pausa los demás).
-       * - Si falla por autoplay policy, hace fallback a `muted` para que al menos se reproduzca.
+       * Carga la URL del video solo cuando el slide entra en viewport.
+       * (El markup ya trae `data-video-src` pero sin `src` inicial.)
+       */
+      const loadVideoIfNeeded = (videoEl) => {
+        if (!videoEl) return;
+
+        const videoSrc = videoEl.dataset?.videoSrc;
+        if (!videoSrc) return;
+
+        // Si todavía no tiene `src`, lo asignamos a partir de `data-video-src`.
+        if (!videoEl.getAttribute('src')) {
+          videoEl.src = videoSrc;
+          try {
+            videoEl.load();
+          } catch {
+            // no-op
+          }
+        }
+      };
+
+      /**
+       * Reproduce un video (por defecto en muted). Solo dejamos uno “activo” a la vez.
        */
       const playVideo = async (
         videoEl,
@@ -123,52 +163,38 @@ const loopSlides = [...slides, ...slides, ...slides];
       ) => {
         if (!videoEl) return;
 
-        if (unmute) {
-          // Pausa/asegura exclusividad cuando hay reproducción "audible".
-          allVideos.forEach((videoItem) => {
-            const v = /** @type {any} */ (videoItem);
-            if (v !== videoEl) {
-              try {
-                v.pause();
-              } catch {
-                // no-op
-              }
-              v.muted = true;
-            }
-          });
+        loadVideoIfNeeded(videoEl);
 
-          // Marcamos inmediatamente el "actual" para evitar flips por callbacks simultáneos.
-          unmutedVideo = videoEl;
-          videoEl.muted = false;
-
+        // Exclusividad: pausamos lo activo si es otro slide.
+        if (activeVideo && activeVideo !== videoEl) {
           try {
-            if (videoEl.paused) {
-              await videoEl.play();
-            }
-            return;
+            activeVideo.pause();
           } catch {
-            // Fallback: si el navegador bloquea el audio, reproducimos silenciado.
-            try {
-              videoEl.muted = true;
-              if (videoEl.paused) {
-                await videoEl.play();
-              }
-            } catch {
-              // no-op
-            }
-            unmutedVideo = null;
-            return;
+            // no-op
           }
+          activeVideo.muted = true;
+          activeVideo = null;
         }
 
-        // Modo muted: solo aseguramos reproducción (sin desmutear).
+        videoEl.muted = !unmute;
+
         try {
-          videoEl.muted = true;
           if (videoEl.paused) {
             await videoEl.play();
           }
+          activeVideo = videoEl;
+          return;
         } catch {
-          // autoplay puede fallar si el navegador decide bloquearlo
+          // Fallback: si no deja con audio, intentamos con muted.
+          try {
+            videoEl.muted = true;
+            if (videoEl.paused) {
+              await videoEl.play();
+            }
+            activeVideo = videoEl;
+          } catch {
+            // no-op
+          }
         }
       };
 
@@ -189,29 +215,26 @@ const loopSlides = [...slides, ...slides, ...slides];
           const currentVideo = /** @type {any} */ (
             entry.target.querySelector('video[data-slide-video]')
           );
+          currentVisibleVideo = currentVideo || null;
 
           // Si entramos a un slide que NO tiene video, cortamos cualquier audio en curso.
           if (!currentVideo) {
-            if (unmutedVideo) {
+            if (activeVideo) {
               try {
-                unmutedVideo.pause();
+                activeVideo.pause();
               } catch {
                 // no-op
               }
-              unmutedVideo.muted = true;
-              unmutedVideo = null;
+              activeVideo.muted = true;
+              activeVideo = null;
             }
           } else {
-            // Si el usuario estaba escuchando un video y swipea a otro,
-            // pausamos el anterior y arrancamos el nuevo sin tocar la pantalla.
-            if (unmutedVideo && currentVideo !== unmutedVideo) {
-              void playVideo(currentVideo, { unmute: true });
-            } else if (!unmutedVideo) {
-              // Si veníamos en muted, al menos aseguremos que el video nuevo se reproduzca.
+            // Cargamos el src al entrar en viewport, pero en iOS Safari evitamos `play()`
+            // hasta que el usuario haya interactuado al menos una vez.
+            loadVideoIfNeeded(currentVideo);
+
+            if (!isiOS || userInteracted) {
               void playVideo(currentVideo, { unmute: false });
-            } else {
-              // Mismo slide con sonido: mantenemos reproducción/audio.
-              void playVideo(currentVideo, { unmute: true });
             }
           }
 
@@ -265,6 +288,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 
             // Consideramos "tap" si el desplazamiento es pequeño.
             if (dx < 12 && dy < 12 && dt < 350) {
+              userInteracted = true;
               void playVideo(video, { unmute: true });
             }
 
@@ -275,6 +299,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 
         // Desktop fallback: click para desmutear.
         slideEl.addEventListener('click', () => {
+          userInteracted = true;
           void playVideo(video, { unmute: true });
         });
       });

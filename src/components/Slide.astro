@@ -18,12 +18,11 @@ const { image, video, poster, title, description, price, alt = title, tags = [] 
     <video
       class="slide__media slide__video"
       data-slide-video
-      src={video}
-      autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
+      data-video-src={video}
       poster={poster}
     />
   ) : (
