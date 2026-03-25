@@ -204,3 +204,64 @@ body {
   transform: scale(1.1) rotate(-10deg);
   fill: #ffd93d;
 }
+
+/* Overlay para indicar que el video está silenciado */
+.slide__sound-overlay {
+  position: absolute;
+  top: auto;
+  right: 12px;
+  bottom: 344px;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slide__sound-overlay--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide__sound-overlay__icon--unmuted {
+  display: none;
+}
+
+.slide__sound-overlay--unmuted .slide__sound-overlay__icon--unmuted {
+  display: block;
+}
+
+.slide__sound-overlay--unmuted .slide__sound-overlay__icon--muted {
+  display: none;
+}
+
+.slide__sound-overlay__icon--muted {
+  display: block;
+}
+
+.slide__sound-overlay__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (min-width: 431px) {
+  .slide__sound-overlay {
+    right: 20px;
+  }
+}

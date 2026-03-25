@@ -15,16 +15,60 @@ const { image, video, poster, title, description, price, alt = title, tags = [] 
 
 <section class="slide" data-slide>
   {video ? (
-    <video
-      class="slide__media slide__video"
-      data-slide-video
-      muted
-      loop
-      playsinline
-      preload="none"
-      data-video-src={video}
-      poster={poster}
-    />
+    <>
+      <video
+        class="slide__media slide__video"
+        data-slide-video
+        muted
+        loop
+        playsinline
+        preload="none"
+        data-video-src={video}
+        poster={poster}
+      />
+      <button
+        type="button"
+        class="slide__sound-overlay"
+        data-sound-overlay
+        aria-label="Video en silencio. Toca para activar el sonido"
+      >
+        <svg
+          class="slide__sound-overlay__icon slide__sound-overlay__icon--muted"
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M11 5 6 9H2v6h4l5 4V5z" />
+          <path d="M23 9l-4 4" />
+          <path d="M19 9l4 4" />
+        </svg>
+        <svg
+          class="slide__sound-overlay__icon slide__sound-overlay__icon--unmuted"
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M11 5 6 9H2v6h4l5 4V5z" />
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          <path d="M19 5a10 10 0 0 1 0 14" />
+        </svg>
+        <span class="slide__sound-overlay__sr-only">Toca para activar el sonido</span>
+      </button>
+    </>
   ) : (
     <img
       class="slide__image"

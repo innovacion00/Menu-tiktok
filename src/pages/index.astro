@@ -65,6 +65,34 @@ const loopSlides = [...slides, ...slides, ...slides];
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let userInteracted = false;
 
+    const getSoundOverlay = (videoEl) => {
+      const slideEl = videoEl?.closest?.('[data-slide]');
+      if (!slideEl) return null;
+      return slideEl.querySelector('[data-sound-overlay]');
+    };
+
+    const showSoundOverlay = (videoEl) => {
+      const overlay = getSoundOverlay(videoEl);
+      if (!overlay) return;
+      overlay.classList.remove('slide__sound-overlay--hidden');
+
+      const isMuted = videoEl?.muted !== false;
+      overlay.classList.toggle('slide__sound-overlay--unmuted', !isMuted);
+      overlay.setAttribute(
+        'aria-label',
+        isMuted
+          ? 'Video en silencio. Toca para activar el sonido'
+          : 'Sonido activado. Toca para reproducir de nuevo'
+      );
+    };
+
+    const hideSoundOverlay = (videoEl) => {
+      const overlay = getSoundOverlay(videoEl);
+      if (!overlay) return;
+      overlay.classList.add('slide__sound-overlay--hidden');
+      overlay.classList.remove('slide__sound-overlay--unmuted');
+    };
+
     if (btnLike) {
       btnLike.addEventListener('click', function () {
         this.classList.toggle('liked');
@@ -167,22 +195,26 @@ const loopSlides = [...slides, ...slides, ...slides];
 
         // Exclusividad: pausamos lo activo si es otro slide.
         if (activeVideo && activeVideo !== videoEl) {
+          const previous = activeVideo;
           try {
-            activeVideo.pause();
+            previous.pause();
           } catch {
             // no-op
           }
-          activeVideo.muted = true;
+          previous.muted = true;
+          hideSoundOverlay(previous);
           activeVideo = null;
         }
 
         videoEl.muted = !unmute;
+        showSoundOverlay(videoEl);
 
         try {
           if (videoEl.paused) {
             await videoEl.play();
           }
           activeVideo = videoEl;
+          showSoundOverlay(videoEl);
           return;
         } catch {
           // Fallback: si no deja con audio, intentamos con muted.
@@ -192,6 +224,7 @@ const loopSlides = [...slides, ...slides, ...slides];
               await videoEl.play();
             }
             activeVideo = videoEl;
+            showSoundOverlay(videoEl);
           } catch {
             // no-op
           }
@@ -220,6 +253,7 @@ const loopSlides = [...slides, ...slides, ...slides];
           // Si entramos a un slide que NO tiene video, cortamos cualquier audio en curso.
           if (!currentVideo) {
             if (activeVideo) {
+              hideSoundOverlay(activeVideo);
               try {
                 activeVideo.pause();
               } catch {
@@ -232,6 +266,23 @@ const loopSlides = [...slides, ...slides, ...slides];
             // Cargamos el src al entrar en viewport, pero en iOS Safari evitamos `play()`
             // hasta que el usuario haya interactuado al menos una vez.
             loadVideoIfNeeded(currentVideo);
+
+            // Si cambiamos de slide, aseguramos que solo el visible tenga overlay.
+            if (activeVideo && activeVideo !== currentVideo) {
+              const previous = activeVideo;
+              try {
+                previous.pause();
+              } catch {
+                // no-op
+              }
+              previous.muted = true;
+              hideSoundOverlay(previous);
+              activeVideo = null;
+            }
+
+            // El overlay siempre se muestra mientras el slide con video es visible
+            // (aunque iOS Safari no permita reproducir hasta el primer gesto).
+            showSoundOverlay(currentVideo);
 
             if (!isiOS || userInteracted) {
               void playVideo(currentVideo, { unmute: false });
