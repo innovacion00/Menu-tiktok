@@ -160,7 +160,7 @@ export const slides = [
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vino%20tinto.mp4",
     title: "Botella de vino tinto",
     description: "Elección especial para acompañar cada plato, con notas intensas y equilibradas que realzan la experiencia gastronómica.",
-    price: "$ COP",
+    price: "90.000$ COP",
     tags: ["Vino"],
   },
   {
@@ -168,7 +168,7 @@ export const slides = [
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vno%20blanco.mp4",
     title: "Botella de vino blanco",
     description: "Refrescante y ligero, ideal para acompañar platos suaves y realzar cada sabor con sus notas frescas y equilibradas.",
-    price: "$ COP",
+    price: "90.000$ COP",
     tags: ["Vino"],
   },
   {
@@ -176,7 +176,7 @@ export const slides = [
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vino%20rosado.mp4",
     title: "Vino rosado",
     description: "Suave y afrutado, perfecto para acompañar momentos ligeros y realzar la frescura de cada plato.",
-    price: "$ COP",
+    price: "90.000$ COP",
     tags: ["Vino"],
   },
   {
