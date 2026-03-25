@@ -11,59 +11,6 @@ export const slides = [
     price: "Desliza hacia abajo para ver nuestros platos",
   },
   {
-    id: 1,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/introduccion%20bebidas.mp4",
-    title: "Bebidas",
-    description:"Opciones refrescantes para todos los gustos: desde limonadas y jugos naturales en leche o agua, hasta gaseosas clásicas y cervezas bien frías.",
-  },
-  {
-    id: 2,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20en%20agua.mp4",
-    title: "Jugos naturales en agua",
-    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
-    price:"13.900$ COP",
-    tags: ["Bebidas", "Jugos"],
-  },
-  {
-    id: 3,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20con%20leche.mp4",
-    title: "Jugos naturales en leche",
-    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
-    price:"15.900$ COP",
-    tags: ["Bebidas", "Jugos"]
-  },
-  {
-    id: 4,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonara%20natural.mp4",
-    title: "Limonada natural",
-    price:"13.900$ COP",
-    tags: ["Bebidas", "Jugos"]
-  },
-  {
-    id: 5,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20hierbabuena.mp4",
-    title: "Limonada hierbabuena",
-    price:"15.900$ COP",
-    tags: ["Bebidas", "Jugos"]
-  },
-  {
-    id: 6,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20de%20coco.mp4",
-    title: "Limonada de coco",
-    price:"18.900$ COP",
-    tags: ["Bebidas", "Jugos"]
-  },
-  {
-    id: 7,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20cerezada.mp4",
-    title: "Limonada cerezada",
-    price:"18.900$ COP",
-    tags: ["Bebidas", "Jugos"]
-  },
-  
-  
-
-  {
     id: 22,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Zafiro%20video.mp4",
     title: "Zafiro",
@@ -90,7 +37,7 @@ export const slides = [
   {
     id: 25,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Piura%20video.mp4",
-    title: "Pirua",
+    title: "Piura",
     description: "Fatwashing de coco y chocolate blanco en pisco ron de coco, almibar de vainilla, zumo de limon clarificado",
     price: "39.900$ COP",
     tags: ["Cocktails"],
@@ -168,6 +115,15 @@ export const slides = [
     tags: ["Cocktails","Vodka"],
   },
   {
+    id: 78,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Tinto%20de%20vereno.mp4",
+    title: "Tinto de verano",
+    description: "Blend dé cepas Tinta y rosadas reducidas y homegenizadas en mandarino, terminada con agua carbonatada.",
+    price: "35.900$ COP",
+    tags: ["Cocktails"],
+  },
+  
+  {
     id: 35,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Falernum%20video.mp4",
     title: "Mocktails: falernum",
@@ -198,6 +154,30 @@ export const slides = [
     description: "Perfecta combinacion dulce y citrica entre la vainilla y limon mandarino terminado con agua carbonatada.",
     price: "16.000$ COP",
     tags: ["Cocktails","Mocktails"],
+  },
+  {
+    id: 79,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vino%20tinto.mp4",
+    title: "Botella de vino tinto",
+    description: "Elección especial para acompañar cada plato, con notas intensas y equilibradas que realzan la experiencia gastronómica.",
+    price: "$ COP",
+    tags: ["Vino"],
+  },
+  {
+    id: 80,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vno%20blanco.mp4",
+    title: "Botella de vino blanco",
+    description: "Refrescante y ligero, ideal para acompañar platos suaves y realzar cada sabor con sus notas frescas y equilibradas.",
+    price: "$ COP",
+    tags: ["Vino"],
+  },
+  {
+    id: 81,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Vinos/botella%20de%20vino%20rosado.mp4",
+    title: "Vino rosado",
+    description: "Suave y afrutado, perfecto para acompañar momentos ligeros y realzar la frescura de cada plato.",
+    price: "$ COP",
+    tags: ["Vino"],
   },
   {
     id: 39,
@@ -465,7 +445,58 @@ export const slides = [
     description: "Lomo salteado servido sobre arroz cremoso de champiñones.",
     price: "65.000$ COP",
     tags: ["Recomendaciones","Signature","Arroz","Champiñones"],
-  },{
+  },
+  {
+    id: 1,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/introduccion%20bebidas.mp4",
+    title: "Bebidas",
+    description:"Opciones refrescantes para todos los gustos: desde limonadas y jugos naturales en leche o agua, hasta gaseosas clásicas y cervezas bien frías.",
+  },
+  {
+    id: 2,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20en%20agua.mp4",
+    title: "Jugos naturales en agua",
+    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
+    price:"13.900$ COP",
+    tags: ["Bebidas", "Jugos"],
+  },
+  {
+    id: 3,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/video%20jugos%20con%20leche.mp4",
+    title: "Jugos naturales en leche",
+    description: "Maracuya, Guanabana, Mora, Uva, Nispero, Mango, Lulo, Zapote, Fresa, Corozo.",
+    price:"15.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
+    id: 4,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonara%20natural.mp4",
+    title: "Limonada natural",
+    price:"13.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
+    id: 5,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20hierbabuena.mp4",
+    title: "Limonada hierbabuena",
+    price:"15.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
+    id: 6,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20de%20coco.mp4",
+    title: "Limonada de coco",
+    price:"18.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
+    id: 7,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/limonada%20cerezada.mp4",
+    title: "Limonada cerezada",
+    price:"18.900$ COP",
+    tags: ["Bebidas", "Jugos"]
+  },
+  {
     id: 8,
     image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Bebidas/AGUA-VIDRIO-MANANTIAL.png",
     title: "Agua manantial ",
