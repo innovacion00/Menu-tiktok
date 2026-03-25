@@ -324,7 +324,7 @@ export const slides = [
   {
     id: 57,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/tomahawck.mp4",
-    title: "Tomahawck de cerdo.",
+    title: "Tomahawk de cerdo.",
     description: "Corte jugoso a la parrilla, acompañado de papas francesas y chimichurri artesanal.",
     price: "68.000$ COP",
     tags: ["A la parrilla","Cerdo"],
