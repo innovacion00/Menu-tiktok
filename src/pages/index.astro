@@ -15,6 +15,8 @@ const loopSlides = [...slides, ...slides, ...slides];
           image={slide.image}
           video={(slide as any).video}
           poster={(slide as any).poster}
+          originalId={slide.id}
+          renderIndex={index}
           title={slide.title}
           description={slide.description ?? ''}
           price={slide.price}
@@ -25,6 +27,14 @@ const loopSlides = [...slides, ...slides, ...slides];
     </main>
 
     <div class="floating-actions" aria-label="Acciones">
+      <button type="button" class="action-btn action-btn--grid" id="btn-grid" aria-label="Ver menú en cuadrícula">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+        </svg>
+      </button>
       <button type="button" class="action-btn action-btn--like" id="btn-like" aria-label="Me gusta">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -46,12 +56,68 @@ const loopSlides = [...slides, ...slides, ...slides];
       </button>
     </div>
   </div>
+
+  <div class="grid-modal" id="grid-modal" aria-hidden="true" role="dialog" aria-label="Vista general del menú">
+    <div class="grid-modal__backdrop" data-grid-close></div>
+    <div class="grid-modal__panel" role="document">
+      <div class="grid-modal__header">
+        <h2 class="grid-modal__title">Menú</h2>
+        <button type="button" class="grid-modal__close" data-grid-close aria-label="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid-modal__content">
+        <div class="grid" id="grid">
+          {slides.map((s) => (
+            <button
+              type="button"
+              class="grid-card"
+              data-grid-card
+              data-target-id={s.id}
+              data-has-video={Boolean((s as any).video)}
+              data-video-src={(s as any).video}
+              data-poster={(s as any).poster}
+              aria-label={`Ir a: ${s.title}`}
+            >
+              <div class="grid-card__media">
+                {(s as any).video ? (
+                  <video
+                    class="grid-card__thumb"
+                    data-grid-video
+                    muted
+                    playsinline
+                    preload="none"
+                    data-video-src={(s as any).video}
+                    poster={(s as any).poster}
+                  />
+                ) : (
+                  <img class="grid-card__thumb" src={s.image} alt={s.title} loading="lazy" decoding="async" />
+                )}
+                {(s as any).video && <span class="grid-card__play" aria-hidden="true"></span>}
+              </div>
+
+              <div class="grid-card__meta">
+                <div class="grid-card__title">{s.title}</div>
+                {s.price && <div class="grid-card__price">{s.price}</div>}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <script>
   // @ts-nocheck
   (function () {
     const feed = document.getElementById('feed');
+    const btnGrid = document.getElementById('btn-grid');
+    const gridModal = document.getElementById('grid-modal');
     const btnLike = document.getElementById('btn-like');
     const btnComment = document.getElementById('btn-comment');
     const btnShare = document.getElementById('btn-share');
@@ -92,6 +158,126 @@ const loopSlides = [...slides, ...slides, ...slides];
       overlay.classList.add('slide__sound-overlay--hidden');
       overlay.classList.remove('slide__sound-overlay--unmuted');
     };
+
+    const openGrid = () => {
+      if (!gridModal) return;
+      gridModal.classList.add('grid-modal--open');
+      gridModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('no-scroll');
+
+      // Previsualización estática para videos: cargamos metadata y mostramos 1er frame.
+      const gridVideos = gridModal.querySelectorAll('video[data-grid-video]');
+      gridVideos.forEach((videoEl) => {
+        const src = videoEl?.dataset?.videoSrc;
+        if (!src) return;
+
+        if (!videoEl.getAttribute('src')) {
+          videoEl.src = src;
+          try {
+            videoEl.load();
+          } catch {
+            // no-op
+          }
+        }
+
+        const ensureFirstFrame = () => {
+          try {
+            if (Number.isFinite(videoEl.duration) && videoEl.duration > 0) {
+              const t = Math.min(0.05, Math.max(0, (videoEl.duration ?? 0) * 0.001));
+              if (!Number.isNaN(t)) videoEl.currentTime = t;
+            } else {
+              videoEl.currentTime = 0.01;
+            }
+          } catch {
+            // no-op
+          }
+
+          try {
+            videoEl.pause();
+          } catch {
+            // no-op
+          }
+        };
+
+        if (videoEl.readyState >= 2) {
+          ensureFirstFrame();
+        } else {
+          const onLoaded = () => {
+            ensureFirstFrame();
+            videoEl.removeEventListener('loadeddata', onLoaded);
+          };
+          videoEl.addEventListener('loadeddata', onLoaded);
+        }
+      });
+    };
+
+    const closeGrid = () => {
+      if (!gridModal) return;
+      gridModal.classList.remove('grid-modal--open');
+      gridModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('no-scroll');
+    };
+
+    if (btnGrid) {
+      btnGrid.addEventListener('click', openGrid);
+    }
+
+    if (gridModal) {
+      gridModal.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target?.closest?.('[data-grid-close]')) {
+          closeGrid();
+        }
+      });
+
+      const scrollToSlide = (originalId) => {
+        if (!feed) return;
+        const idStr = String(originalId);
+        const matches = Array.from(
+          document.querySelectorAll(`[data-slide][data-slide-original-id="${idStr}"]`)
+        );
+        if (!matches.length) return;
+
+        // Usamos la copia del medio (2da vuelta) para no romper el “infinito”.
+        const uniqueCount = slides?.length ? slides.length / 3 : 0;
+        const targetIndex = uniqueCount || 0;
+
+        let best = matches[0];
+        let bestScore = Infinity;
+        for (const el of matches) {
+          const idxRaw = el?.dataset?.slideRenderIndex;
+          const idx = idxRaw ? Number.parseInt(idxRaw, 10) : 0;
+          const score = Math.abs(idx - targetIndex);
+          if (score < bestScore) {
+            best = el;
+            bestScore = score;
+          }
+        }
+
+        // Cerramos el modal y navegamos.
+        closeGrid();
+        requestAnimationFrame(() => {
+          try {
+            best.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } catch {
+            // fallback
+            try {
+              best.scrollIntoView();
+            } catch {
+              // no-op
+            }
+          }
+        });
+      };
+
+      gridModal.addEventListener('click', (e) => {
+        const card = e.target?.closest?.('[data-grid-card]');
+        if (!card) return;
+        const targetId = card.dataset?.targetId;
+        if (!targetId) return;
+        scrollToSlide(targetId);
+      });
+    }
 
     if (btnLike) {
       btnLike.addEventListener('click', function () {

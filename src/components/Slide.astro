@@ -3,6 +3,8 @@ interface Props {
   image?: string;
   video?: string;
   poster?: string;
+  originalId?: number | string;
+  renderIndex?: number;
   title: string;
   description: string;
   price?: string;
@@ -10,10 +12,26 @@ interface Props {
   tags?: string[];
 }
 
-const { image, video, poster, title, description, price, alt = title, tags = [] } = Astro.props;
+const {
+  image,
+  video,
+  poster,
+  originalId,
+  renderIndex,
+  title,
+  description,
+  price,
+  alt = title,
+  tags = [],
+} = Astro.props;
 ---
 
-<section class="slide" data-slide>
+<section
+  class="slide"
+  data-slide
+  data-slide-original-id={originalId}
+  data-slide-render-index={renderIndex}
+>
   {video ? (
     <>
       <video
