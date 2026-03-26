@@ -634,3 +634,34 @@ export const slides = [
   //   tags: ["Postres","Dulces","Frio"],
   // },
 ];
+
+const normalizeStr = (v) => (typeof v === 'string' ? v.trim().toLowerCase() : '');
+
+/**
+ * "Menú piscina": excluye el "plato fuerte" (Arroces, Pastas, Asados a la parrilla, Sopas
+ * y Recomendados del chef).
+ *
+ * Importante: los items comentados NO entran porque el array `slides` activo no los incluye.
+ */
+export const slidesPiscina = slides.filter((slide) => {
+  const tags = Array.isArray(slide?.tags) ? slide.tags : [];
+  const tagsLower = tags.map(normalizeStr);
+  const titleLower = normalizeStr(slide?.title);
+
+  // Excepciones permitidas en menú piscina
+  const allowInPiscina =
+    slide?.id === 56 || // Burger Aixo
+    titleLower === 'burger aixo';
+  if (allowInPiscina) return true;
+
+  const isPlatoFuerte =
+    tagsLower.includes('arroces') ||
+    tagsLower.includes('pastas') ||
+    tagsLower.includes('asados') ||
+    tagsLower.includes('a la parrilla') ||
+    tagsLower.includes('sopas') ||
+    tagsLower.includes('recomendaciones') ||
+    titleLower.includes('recomendados del chef');
+
+  return !isPlatoFuerte;
+});

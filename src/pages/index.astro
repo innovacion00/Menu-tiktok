@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Slide from '../components/Slide.astro';
-import { slides } from '../data/slides.js';
+import { slides as slidesDefault } from '../data/slides.js';
+
+const { slides: slidesData = slidesDefault } = Astro.props;
 
 // Tres vueltas del menú para simular un feed largo e "infinito"
-const loopSlides = [...slides, ...slides, ...slides];
+const loopSlides = [...slidesData, ...slidesData, ...slidesData];
 ---
 
 <Layout>
@@ -72,7 +74,7 @@ const loopSlides = [...slides, ...slides, ...slides];
 
       <div class="grid-modal__content">
         <div class="grid" id="grid">
-          {slides.map((s) => (
+          {slidesData.map((s: any) => (
             <button
               type="button"
               class="grid-card"
