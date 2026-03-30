@@ -103,7 +103,7 @@ export const slides = [
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Old%20fashioned%20video.mp4",
     title: "Old fashioned",
     description: "Combincacion de whisky blanck and white, almibar simple y bitter de angostura",
-    price: "16.000$ COP",
+    price: "35.900$ COP",
     tags: ["Cocktails","Whisky"],
   },
   {
