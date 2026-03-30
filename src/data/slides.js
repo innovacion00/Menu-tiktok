@@ -705,7 +705,7 @@ export const slidesPiscina = slides.filter((slide) => {
   if (allowInPiscina) return true;
 
   const isPlatoFuerte =
-  tagsLower.includes('del mar') ||
+  tagsLower.includes('Del mar') ||
     tagsLower.includes('arroces') ||
     tagsLower.includes('pastas') ||
     tagsLower.includes('asados') ||
