@@ -715,3 +715,22 @@ export const slidesPiscina = slides.filter((slide) => {
 
   return !isPlatoFuerte;
 });
+
+/**
+ * Menú habitaciones: solo entradas, bebidas (incluye intro "Bebidas" id 1 sin tags) y Burger Aixo.
+ */
+export const slidesHabitaciones = slides.filter((slide) => {
+  if (slide?.id === 0) return false;
+
+  const tags = Array.isArray(slide?.tags) ? slide.tags : [];
+  const tagsLower = tags.map(normalizeStr);
+  const titleLower = normalizeStr(slide?.title);
+
+  const isEntrada = tagsLower.includes('entradas');
+  const isBebida =
+    tagsLower.includes('bebidas') || titleLower === 'bebidas';
+  const isBurgerAixo =
+    slide?.id === 56 || titleLower === 'burger aixo';
+
+  return isEntrada || isBebida || isBurgerAixo;
+});
