@@ -407,7 +407,7 @@ export const slides = [
     title: "Crema de pollo y champiñones",
     description: "Suave crema con pollo, champiñones y cebolla caramelizada.",
     price: "35.000$ COP",
-    tags: ["Crema", "Champiñones"],
+    tags: ["Sopas", "Crema", "Champiñones"],
   },
   {
     id: 64,
@@ -705,6 +705,7 @@ export const slidesPiscina = slides.filter((slide) => {
   if (allowInPiscina) return true;
 
   const isPlatoFuerte =
+  tagsLower.includes('del mar') ||
     tagsLower.includes('arroces') ||
     tagsLower.includes('pastas') ||
     tagsLower.includes('asados') ||
