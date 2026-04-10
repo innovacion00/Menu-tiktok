@@ -661,7 +661,7 @@ export const slides = [
   // },
   {
     id: 86,
-    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Postres/Oblea%20rellena.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Postres/Oblea%20rellena.mp4",
     title: "Oblea rellena",
     description: "Crocante oblea rellena con arequipe.",
     price:"7000$ COP",
