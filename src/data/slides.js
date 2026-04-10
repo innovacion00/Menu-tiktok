@@ -488,6 +488,14 @@ export const slides = [
     tags: ["Recomendaciones","Signature","Carne","Caribeña"],
   },
   {
+    id: 88,
+    image: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Recomendados%20del%20chef/Ceviche%20de%20chicharron.jpg",
+    title: "Ceviche de chicharrón",
+    description: "Ceviche de chicharrón con toques cítricos y frescos.",
+    price: "42.000$ COP",
+    tags: ["Recomendaciones","Cerdo","Ceviche"],
+  },
+  {
     id: 1,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/introduccion%20bebidas.mp4",
     title: "Bebidas",
