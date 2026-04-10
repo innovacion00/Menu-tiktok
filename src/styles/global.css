@@ -325,6 +325,33 @@ body.no-scroll {
   letter-spacing: 0.02em;
 }
 
+.grid-modal__tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 14px 12px 14px;
+  align-items: center;
+}
+
+.grid-modal__tab {
+  flex: 1;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 10px 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.grid-modal__tab--active {
+  color: #ffd93d;
+  border-color: rgba(255, 217, 61, 0.65);
+  background: rgba(255, 217, 61, 0.14);
+}
+
 .grid-modal__close {
   width: 40px;
   height: 40px;
@@ -426,6 +453,7 @@ body.no-scroll {
   line-height: 1.2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   min-height: 1.9em;

@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Slide from '../components/Slide.astro';
 import { slides as slidesDefault } from '../data/slides.js';
 
-const { slides: slidesData = slidesDefault } = Astro.props;
+const { slides: slidesData = slidesDefault, menuVariant = 'general' } = /** @type {any} */ (Astro.props);
 
 // Tres vueltas del menú para simular un feed largo e "infinito"
 const loopSlides = [...slidesData, ...slidesData, ...slidesData];
@@ -70,6 +70,33 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
             <path d="M6 6l12 12"></path>
           </svg>
         </button>
+      </div>
+
+      <div class="grid-modal__tabs" role="tablist" aria-label="Menús">
+        <a
+          class={`grid-modal__tab ${menuVariant === 'general' ? 'grid-modal__tab--active' : ''}`}
+          href="/"
+          role="tab"
+          aria-selected={menuVariant === 'general'}
+        >
+          Menú general
+        </a>
+        <a
+          class={`grid-modal__tab ${menuVariant === 'piscina' ? 'grid-modal__tab--active' : ''}`}
+          href="/menu-piscina"
+          role="tab"
+          aria-selected={menuVariant === 'piscina'}
+        >
+          Menú piscina
+        </a>
+        <a
+          class={`grid-modal__tab ${menuVariant === 'habitaciones' ? 'grid-modal__tab--active' : ''}`}
+          href="/menu-habitaciones"
+          role="tab"
+          aria-selected={menuVariant === 'habitaciones'}
+        >
+          Menú habitaciones
+        </a>
       </div>
 
       <div class="grid-modal__content">
