@@ -184,25 +184,24 @@ body {
   transform: scale(0.92);
 }
 
+.action-btn img,
 .action-btn svg {
-  width: 26px;
-  height: 26px;
+  width: 45px;
+  height: 35px;
   transition: transform 0.2s ease, fill 0.2s ease;
 }
 
-.action-btn--like.liked svg {
-  fill: #ff375f;
-  stroke: #ff375f;
-}
-
+.action-btn--comment:active img,
 .action-btn--comment:active svg {
   transform: scale(1.1);
 }
 
+.action-btn--comment.active img,
 .action-btn--comment.active svg {
   fill: #25f4ee;
 }
 
+.action-btn--share.shared img,
 .action-btn--share.shared svg {
   transform: scale(1.1) rotate(-10deg);
   fill: #ffd93d;

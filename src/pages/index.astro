@@ -29,32 +29,40 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
     </main>
 
     <div class="floating-actions" aria-label="Acciones">
-      <button type="button" class="action-btn action-btn--grid" id="btn-grid" aria-label="Ver menú en cuadrícula">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-        </svg>
-      </button>
       <button type="button" class="action-btn action-btn--like" id="btn-like" aria-label="Me gusta" aria-pressed="false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
+        <img
+          src="https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Iconos%20menu/Icono%20de%20like%20normal.png"
+          data-default-src="https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Iconos%20menu/Icono%20de%20like%20normal.png"
+          data-liked-src="https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Iconos%20menu/corazon_rojo.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
       </button>
+      <button type="button" class="action-btn action-btn--grid" id="btn-grid" aria-label="Ver menú en cuadrícula">
+        <img
+          src="https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Iconos%20menu/Icono%20de%20comentarios%20tiktok.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+      </button>
+      
       <!-- <button type="button" class="action-btn action-btn--comment" id="btn-comment" aria-label="Comentarios">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
       </button> -->
       <button type="button" class="action-btn action-btn--share" id="btn-share" aria-label="Compartir">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <path d="M8.59 13.51L15.42 17.49"></path>
-          <path d="M15.41 6.51L8.59 10.49"></path>
-        </svg>
+        <img
+          src="https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Iconos%20menu/icono%20share.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
       </button>
     </div>
   </div>
@@ -154,38 +162,10 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
     let currentTitle = '';
     let currentPrice = '';
     let activeVideo = /** @type {any} */ (null);
-    let currentVisibleVideo = /** @type {any} */ (null);
     const isiOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const SOUND_PREF_KEY = 'menuSoundEnabled';
-    const readSoundPref = () => {
-      try {
-        return window.localStorage.getItem(SOUND_PREF_KEY) === '1';
-      } catch {
-        return false;
-      }
-    };
-    const writeSoundPref = (enabled) => {
-      try {
-        window.localStorage.setItem(SOUND_PREF_KEY, enabled ? '1' : '0');
-      } catch {
-        // no-op
-      }
-    };
-
-    // Preferencia persistente: si el usuario ya activó sonido en cualquier menú,
-    // lo intentamos mantener para los siguientes menús/slides.
-    let soundEnabled = readSoundPref();
-
-    // Gesto detectado en ESTA carga (iOS Safari lo necesita para permitir play()).
     let userInteracted = false;
-
-    const enableSound = () => {
-      soundEnabled = true;
-      writeSoundPref(true);
-      userInteracted = true;
-    };
 
     const getSoundOverlay = (videoEl) => {
       const slideEl = videoEl?.closest?.('[data-slide]');
@@ -339,6 +319,12 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
       btnLike.addEventListener('click', function () {
         const isLiked = this.classList.toggle('liked');
         this.setAttribute('aria-pressed', isLiked ? 'true' : 'false');
+        const likeImg = this.querySelector('img');
+        if (likeImg) {
+          const defaultSrc = likeImg.dataset?.defaultSrc;
+          const likedSrc = likeImg.dataset?.likedSrc;
+          likeImg.src = isLiked ? likedSrc || likeImg.src : defaultSrc || likeImg.src;
+        }
       });
     }
 
@@ -393,9 +379,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
         'touchstart',
         () => {
           userInteracted = true;
-          if (currentVisibleVideo) {
-            void playVideo(currentVisibleVideo, { unmute: soundEnabled });
-          }
         },
         { passive: true, once: true }
       );
@@ -403,9 +386,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
         'click',
         () => {
           userInteracted = true;
-          if (currentVisibleVideo) {
-            void playVideo(currentVisibleVideo, { unmute: soundEnabled });
-          }
         },
         { once: true }
       );
@@ -497,7 +477,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
           const currentVideo = /** @type {any} */ (
             entry.target.querySelector('video[data-slide-video]')
           );
-          currentVisibleVideo = currentVideo || null;
 
           // Si entramos a un slide que NO tiene video, cortamos cualquier audio en curso.
           if (!currentVideo) {
@@ -534,7 +513,7 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
             showSoundOverlay(currentVideo);
 
             if (!isiOS || userInteracted) {
-              void playVideo(currentVideo, { unmute: soundEnabled });
+              void playVideo(currentVideo, { unmute: false });
             }
           }
 
@@ -588,7 +567,7 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
 
             // Consideramos "tap" si el desplazamiento es pequeño.
             if (dx < 12 && dy < 12 && dt < 350) {
-              enableSound();
+              userInteracted = true;
               void playVideo(video, { unmute: true });
             }
 
@@ -599,7 +578,7 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
 
         // Desktop fallback: click para desmutear.
         slideEl.addEventListener('click', () => {
-          enableSound();
+          userInteracted = true;
           void playVideo(video, { unmute: true });
         });
       });
