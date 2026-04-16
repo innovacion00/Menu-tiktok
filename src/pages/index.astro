@@ -372,7 +372,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
       const slideArray = Array.from(slides);
 
       const videoNodes = feed.querySelectorAll('video[data-slide-video]');
-      let playRequestId = 0;
 
       // iOS Safari suele requerir un gesto del usuario para habilitar reproducción.
       // Usamos esta bandera para evitar llamadas a `play()` antes del primer toque/click.
@@ -412,22 +411,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
         }
       };
 
-      const stopAllVideos = (exceptVideo = null) => {
-        videoNodes.forEach((node) => {
-          const video = /** @type {any} */ (node);
-          if (!video || video === exceptVideo) return;
-          try {
-            video.pause();
-          } catch {
-            // no-op
-          }
-          video.muted = true;
-          hideSoundOverlay(video);
-        });
-
-        activeVideo = exceptVideo || null;
-      };
-
       /**
        * Reproduce un video (por defecto en muted). Solo dejamos uno “activo” a la vez.
        */
@@ -436,12 +419,21 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
         { unmute = false } = /** @type {any} */ ({})
       ) => {
         if (!videoEl) return;
-        const requestId = ++playRequestId;
 
         loadVideoIfNeeded(videoEl);
 
-        // Exclusividad dura: ningún otro video debe quedar reproduciendo.
-        stopAllVideos(videoEl);
+        // Exclusividad: pausamos lo activo si es otro slide.
+        if (activeVideo && activeVideo !== videoEl) {
+          const previous = activeVideo;
+          try {
+            previous.pause();
+          } catch {
+            // no-op
+          }
+          previous.muted = true;
+          hideSoundOverlay(previous);
+          activeVideo = null;
+        }
 
         videoEl.muted = !unmute;
         showSoundOverlay(videoEl);
@@ -449,16 +441,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
         try {
           if (videoEl.paused) {
             await videoEl.play();
-          }
-          if (requestId !== playRequestId) {
-            try {
-              videoEl.pause();
-            } catch {
-              // no-op
-            }
-            videoEl.muted = true;
-            hideSoundOverlay(videoEl);
-            return;
           }
           activeVideo = videoEl;
           showSoundOverlay(videoEl);
@@ -469,16 +451,6 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
             videoEl.muted = true;
             if (videoEl.paused) {
               await videoEl.play();
-            }
-            if (requestId !== playRequestId) {
-              try {
-                videoEl.pause();
-              } catch {
-                // no-op
-              }
-              videoEl.muted = true;
-              hideSoundOverlay(videoEl);
-              return;
             }
             activeVideo = videoEl;
             showSoundOverlay(videoEl);
@@ -508,12 +480,33 @@ const loopSlides = [...slidesData, ...slidesData, ...slidesData];
 
           // Si entramos a un slide que NO tiene video, cortamos cualquier audio en curso.
           if (!currentVideo) {
-            stopAllVideos();
+            if (activeVideo) {
+              hideSoundOverlay(activeVideo);
+              try {
+                activeVideo.pause();
+              } catch {
+                // no-op
+              }
+              activeVideo.muted = true;
+              activeVideo = null;
+            }
           } else {
             // Cargamos el src al entrar en viewport, pero en iOS Safari evitamos `play()`
             // hasta que el usuario haya interactuado al menos una vez.
             loadVideoIfNeeded(currentVideo);
-            stopAllVideos(currentVideo);
+
+            // Si cambiamos de slide, aseguramos que solo el visible tenga overlay.
+            if (activeVideo && activeVideo !== currentVideo) {
+              const previous = activeVideo;
+              try {
+                previous.pause();
+              } catch {
+                // no-op
+              }
+              previous.muted = true;
+              hideSoundOverlay(previous);
+              activeVideo = null;
+            }
 
             // El overlay siempre se muestra mientras el slide con video es visible
             // (aunque iOS Safari no permita reproducir hasta el primer gesto).
