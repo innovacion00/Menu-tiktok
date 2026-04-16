@@ -188,6 +188,14 @@ export const slides = [
     tags: ["Entradas"],
   },
   {
+    id: 89,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/Bowl%20de%20frutas.mp4",
+    title: "Bowl de frutas con yougurt griego",
+    description: "Fresca combinacion de frutas de temporada, sobre una base cremosa de yogurt griego, balance perfecto entre frescura y nutrición.",
+    price: "35.000$ COP",
+    tags: ["Entradas"],
+  },
+  {
     id: 40,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Entradas/ceviche%20de%20camaron.mp4",
     title: "Coctel de camarones",
@@ -354,6 +362,38 @@ export const slides = [
     tags: ["Hamburguesa","A la parrilla","Angus"],
   },
   {
+    id: 90,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/Buger%20sweet%20bacon.mp4",
+    title: "Buger sweet bacon",
+    description: "Jugosa carne ala parrilla con tocineta crujiente y cebolla caramelizada le da un toque ducle irresistible. Acompañada de papas francesas.",
+    price: "38.000$ COP",
+    tags: ["Hamburguesa","A la parrilla","Angus",],
+  },
+  {
+    id: 91,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/Burger%20sweet%20bacon%20doble.mp4",
+    title: "Burger sweet bacon doble",
+    description: "Doble carne, doble placer: tocineta, cebolla caramelizada, cheddar fundido y mozzarella derretida en cada mordida. Acompañada de papas francesas.",
+    price: "49.000$ COP",
+    tags: ["Hamburguesa","A la parrilla","Angus"],
+  },
+  {
+    id: 92,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/BUger%20gaucha.mp4",
+    title: "Buger gaucha",
+    description: "Carne a la parrilla con chorizo artesanal, chimichurri fresco que resalta todo el sabor argentino. Acompañada de papas francesas.",
+    price: "42.000$ COP",
+    tags: ["Hamburguesa","A la parrilla","Angus"],
+  },
+  {
+    id: 93,
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/burger%20posta%20cartagenera.mp4",
+    title: "Burger posta negra",
+    description: "Carne de posta negra desmechada, cocida lento en su salsa, con queso costeño asado que potencia su sabor caribeño. Acompañada de papas francesas.",
+    price: "42.000$ COP",
+    tags: ["Hamburguesa","A la parrilla","Angus"],
+  },
+  {
     id: 57,
     video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/A%20la%20parrilla/tomahawck.mp4",
     title: "Tomahawk de cerdo.",
@@ -434,7 +474,7 @@ export const slides = [
   },
   {
     id: 67,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pizza/Pizza%20de%20salami.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pizza/pizza%20pepperoni.mp4",
     title: "Pepperoni",
     description: "Pepperoni crocante con queso derretido.",
     price: "35.000$ COP",
@@ -442,7 +482,7 @@ export const slides = [
   },
   {
     id: 68,
-    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pizza/Pizza%20vegetariana.mp4",
+    video: "https://space-img.sfo3.digitaloceanspaces.com/Menu-Digital/Pizza/pizza%20vegetales.mp4",
     title: "Vegetariana",
     description: "Vegetales frescos sobre base de tomate y queso.",
     price: "32.000$ COP",
@@ -708,8 +748,12 @@ export const slidesPiscina = slides.filter((slide) => {
 
   // Excepciones permitidas en menú piscina
   const allowInPiscina =
-    slide?.id === 56 || // Burger Aixo
-    titleLower === 'burger aixo';
+    [56, 90, 91, 92, 93].includes(slide?.id) ||
+    titleLower === 'burger aixo' ||
+    titleLower === 'buger sweet bacon' ||
+    titleLower === 'burger sweet bacon doble' ||
+    titleLower === 'buger gaucha' ||
+    titleLower === 'burger posta negra';
   if (allowInPiscina) return true;
 
   const isPlatoFuerte =
@@ -726,7 +770,8 @@ export const slidesPiscina = slides.filter((slide) => {
 });
 
 /**
- * Menú habitaciones: solo entradas, bebidas (incluye intro "Bebidas" id 1 sin tags) y Burger Aixo.
+ * Menú habitaciones: solo entradas, bebidas (incluye intro "Bebidas" id 1 sin tags)
+ * y las hamburguesas permitidas.
  */
 export const slidesHabitaciones = slides.filter((slide) => {
   if (slide?.id === 0) return false;
@@ -738,8 +783,13 @@ export const slidesHabitaciones = slides.filter((slide) => {
   const isEntrada = tagsLower.includes('entradas');
   const isBebida =
     tagsLower.includes('bebidas') || titleLower === 'bebidas';
-  const isBurgerAixo =
-    slide?.id === 56 || titleLower === 'burger aixo';
+  const isBurgerPermitida =
+    [56, 90, 91, 92, 93].includes(slide?.id) ||
+    titleLower === 'burger aixo' ||
+    titleLower === 'buger sweet bacon' ||
+    titleLower === 'burger sweet bacon doble' ||
+    titleLower === 'buger gaucha' ||
+    titleLower === 'burger posta negra';
 
-  return isEntrada || isBebida || isBurgerAixo;
+  return isEntrada || isBebida || isBurgerPermitida;
 });
